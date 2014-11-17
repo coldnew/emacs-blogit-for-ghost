@@ -41,8 +41,31 @@
 
 (org-export-define-derived-backend 'blogit-md 'md
   :translate-alist
-  '((src-block . org-html-src-block)
+  '(
+    ;; Use emacs buildin syntax highlight
+    (src-block . org-html-src-block)
+    ;; Fix for multibyte language
+    (paragraph . org-blogit-md-paragraph)
     ))
+
+
+;;;; Paragraph
+
+(defun org-blogit-md-paragraph (paragraph contents info)
+  "Transcode PARAGRAPH element into Markdown format.
+CONTENTS is the paragraph contents.  INFO is a plist used as
+a communication channel."
+  ;; Fix multibyte language like chinese will be automatically add
+  ;; some space since org-mode will transpose auto-fill-mode's space
+  ;; to newline char.
+  (let* ((fix-regexp "[[:multibyte:]]")
+         (fix-contents
+          (replace-regexp-in-string
+           (concat "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" contents)))
+
+    ;; Send modify data to org-md-paragraph
+    (org-md-paragraph paragraph fix-contents info)))
+
 
 
 ;;; End-user functions
