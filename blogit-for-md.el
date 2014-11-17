@@ -48,7 +48,7 @@
 ;;; End-user functions
 
 ;;;###autoload
-(defun blogit-export-as-html
+(defun blogit-export-as-md
     (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to an HTML buffer for blogit.
 
