@@ -34,7 +34,7 @@
 (require 'ox-html)
 (require 'ox-md)
 (require 'ox-publish)
-
+(require 's)
 
 
 ;;; Define Back-End for org-export
@@ -46,6 +46,8 @@
     (src-block . org-html-src-block)
     ;; Fix for multibyte language
     (paragraph . org-blogit-md-paragraph)
+    ;; Fix link path to suite for ghost
+    (link . org-blogit-md-link)
     ))
 
 
@@ -66,6 +68,16 @@ a communication channel."
     ;; Send modify data to org-md-paragraph
     (org-md-paragraph paragraph fix-contents info)))
 
+;;;; Link
+
+(defun org-blogit-md-link (link contents info)
+  "Transcode LINE-BREAK object into Markdown format.
+CONTENTS is the link's description.  INFO is a plist used as
+a communication channel."
+  (let ((link-1 (org-md-link link contents info)))
+    ;; change ![img][contents/image] to ![img][/contents/image]
+    (s-replace "![img](" "![img](/" link-1)
+    ))
 
 
 ;;; End-user functions
