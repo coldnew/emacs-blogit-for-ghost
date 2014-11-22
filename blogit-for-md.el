@@ -50,6 +50,8 @@
     (link . org-blogit-md-link)
     ;; Increase headline level
     (headline . org-blogit-md-headline)
+    ;; Fix toc for blogit theme
+    (inner-template . org-blogit-inner-template)
     ))
 
 ;;;; Paragraph
@@ -88,6 +90,38 @@ a communication channel."
     ;; change ![img][contents/image] to ![img][/contents/image]
     (s-replace "![img](" "![img](/" link-1)
     ))
+
+
+;;; Template
+
+(defun org-blogit-inner-template (contents info)
+  "Return body of document string after HTML conversion.
+CONTENTS is the transcoded contents string.  INFO is a plist
+holding export options."
+  (concat
+   ;; Table of contents.
+   (let ((depth (plist-get info :with-toc)))
+     (when depth (org-blogit-toc depth info)))
+   ;; Document contents.
+   contents
+   ;; Footnotes section.
+   (org-html-footnote-section info)))
+
+
+;;; Tables of Contents
+
+(defun org-blogit-toc (depth info)
+  "Build a table of contents.
+DEPTH is an integer specifying the depth of the table.  INFO is a
+plist used as a communication channel.  Return the table of
+contents as a string, or nil if it is empty."
+  (let ((toc-entries
+         (mapcar (lambda (headline)
+                   (cons (org-html--format-toc-headline headline info)
+                         (org-export-get-relative-level headline info)))
+                 (org-export-collect-headlines info depth))))
+    (when toc-entries
+      (format "<div class=\"table-of-contents\">\n\n"))))
 
 
 ;;; End-user functions
