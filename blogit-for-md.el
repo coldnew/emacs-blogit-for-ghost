@@ -48,8 +48,9 @@
     (paragraph . org-blogit-md-paragraph)
     ;; Fix link path to suite for ghost
     (link . org-blogit-md-link)
+    ;; Increase headline level
+    (headline . org-blogit-md-headline)
     ))
-
 
 ;;;; Paragraph
 
@@ -67,6 +68,15 @@ a communication channel."
 
     ;; Send modify data to org-md-paragraph
     (org-md-paragraph paragraph fix-contents info)))
+
+;;;; Headline
+
+(defun org-blogit-md-headline (headline contents info)
+  "Transcode HEADLINE element into Markdown format.
+CONTENTS is the headline contents.  INFO is a plist used as
+a communication channel."
+  (let* ((info (plist-put info :headline-offset 1)))
+    (org-md-headline headline contents info)))
 
 ;;;; Link
 
