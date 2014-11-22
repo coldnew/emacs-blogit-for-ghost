@@ -93,7 +93,7 @@ is non-nil."
   (interactive)
   (org-export-to-buffer 'blogit-md "*Blogit Markdown Export*"
     async subtreep visible-only body-only ext-plist
-    (lambda () (set-auto-mode t))))
+    (lambda () (markdown-mode))))
 
 (provide 'blogit-for-md)
 ;;; blogit-for-md.el ends here.
