@@ -43,20 +43,20 @@
   :translate-alist
   '(
     ;; Use emacs buildin syntax highlight
-    (src-block . org-html-src-block)
+    (src-block . org-blogit-src-block)
     ;; Fix for multibyte language
-    (paragraph . org-blogit-md-paragraph)
+    (paragraph . org-blogit-paragraph)
     ;; Fix link path to suite for ghost
-    (link . org-blogit-md-link)
+    (link . org-blogit-link)
     ;; Increase headline level
-    (headline . org-blogit-md-headline)
+    (headline . org-blogit-headline)
     ;; Fix toc for blogit theme
     (inner-template . org-blogit-inner-template)
     ))
 
 ;;;; Paragraph
 
-(defun org-blogit-md-paragraph (paragraph contents info)
+(defun org-blogit-paragraph (paragraph contents info)
   "Transcode PARAGRAPH element into Markdown format.
 CONTENTS is the paragraph contents.  INFO is a plist used as
 a communication channel."
@@ -73,7 +73,7 @@ a communication channel."
 
 ;;;; Headline
 
-(defun org-blogit-md-headline (headline contents info)
+(defun org-blogit-headline (headline contents info)
   "Transcode HEADLINE element into Markdown format.
 CONTENTS is the headline contents.  INFO is a plist used as
 a communication channel."
@@ -82,7 +82,7 @@ a communication channel."
 
 ;;;; Link
 
-(defun org-blogit-md-link (link contents info)
+(defun org-blogit-link (link contents info)
   "Transcode LINE-BREAK object into Markdown format.
 CONTENTS is the link's description.  INFO is a plist used as
 a communication channel."
@@ -90,6 +90,14 @@ a communication channel."
     ;; change ![img][contents/image] to ![img][/contents/image]
     (s-replace "![img](" "![img](/" link-1)
     ))
+
+;;;; Src Block
+
+(defun org-blogit-src-block (src-block contents info)
+  "Transcode a SRC-BLOCK element from Org to HTML.
+CONTENTS holds the contents of the item.  INFO is a plist holding
+contextual information."
+  (org-html-src-block src-block contents info))
 
 
 ;;; Template
@@ -121,7 +129,8 @@ contents as a string, or nil if it is empty."
                          (org-export-get-relative-level headline info)))
                  (org-export-collect-headlines info depth))))
     (when toc-entries
-      (format "<div class=\"table-of-contents\">\n\n"))))
+      ;; NOTE: Need add a space before <div
+      (format " <div class=\"table-of-contents\">\n\n"))))
 
 
 ;;; End-user functions
