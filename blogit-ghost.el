@@ -36,6 +36,21 @@
 (require 'ox-publish)
 (require 's)
 
+;;;; Group
+
+(defgroup blogit-ghost nil
+  "Add space between Chinese and English characters automatically."
+  :group 'convenience
+  :link '(url-link :tag "Github" "https://github.com/coldnew/emacs-blogit-ghost"))
+
+;;;; Custom Variables
+
+(defcustom org-blogit-file-link-prefix "/content/"
+  "Prefix for image and file link."
+  :group 'blogit-ghost
+  :type 'string
+  :initialize 'custom-initialize-default)
+
 
 ;;; Define Back-End for org-export
 
@@ -92,7 +107,7 @@ CONTENTS is the link's description.  INFO is a plist used as
 a communication channel."
   (let ((link-1 (org-md-link link contents info)))
     ;; change ![img][contents/image] to ![img][/contents/image]
-    (s-replace "![img](" "![img](/" link-1)
+    (s-replace "![img](" (concat "![img](" org-blogit-file-link-prefix) link-1)
     ))
 
 ;;;; Example Block and Src Block
