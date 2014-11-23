@@ -2,4 +2,4 @@
 (source melpa)
 
 (depends-on "s")
-(package-file "blogit-for-md")
+(package-file "blogit-ghost")

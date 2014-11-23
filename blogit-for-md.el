@@ -1,11 +1,11 @@
-;;; blogit-for-md.el ---
+;;; blogit-ghost.el --- An org-mode exporter for ghost blogging system.
 
 ;; Copyright (c) 2014 Yen-Chin, Lee.
 ;;
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Keywords: html blog org-mode
-;; X-URL: http://github.com/coldnew/emacs-blogit-for-md
-;; Version: 0.3
+;; X-URL: http://github.com/coldnew/emacs-blogit-ghost
+;; Version: 0.1
 
 ;; This file is not part of GNU Emacs.
 
@@ -148,5 +148,5 @@ is non-nil."
     async subtreep visible-only body-only ext-plist
     (lambda () (markdown-mode))))
 
-(provide 'blogit-for-md)
-;;; blogit-for-md.el ends here.
+(provide 'blogit-ghost)
+;;; blogit-ghost.el ends here.
