@@ -101,7 +101,9 @@ a communication channel."
   "Transcode EXAMPLE-BLOCK element into Markdown format.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
-  (org-html-example-block example-block contents info))
+  ;; following code based on `org-html-example-block'.
+  (format "<pre class=\"example\">%s</pre>"
+          (org-html-format-code example-block info)))
 
 ;;;; Src Block
 
