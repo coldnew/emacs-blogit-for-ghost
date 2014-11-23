@@ -136,7 +136,7 @@ contents as a string, or nil if it is empty."
 ;;; End-user functions
 
 ;;;###autoload
-(defun blogit-export-as-md
+(defun blogit-export-as-ghost
     (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to an HTML buffer for blogit.
 
