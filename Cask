@@ -2,4 +2,4 @@
 (source melpa)
 
 (depends-on "s")
-(package-file "blogit-ghost.el")
+(package-file "blogit-for-ghost.el")

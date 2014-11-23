@@ -1,10 +1,10 @@
-;;; blogit-ghost.el --- An org-mode exporter for ghost blogging system.
+;;; blogit-for-ghost.el --- An org-mode exporter for ghost blogging system.
 
 ;; Copyright (c) 2014 Yen-Chin, Lee.
 ;;
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Keywords: html blog org-mode
-;; X-URL: http://github.com/coldnew/emacs-blogit-ghost
+;; X-URL: http://github.com/coldnew/emacs-blogit-for-ghost
 ;; Version: 0.1
 
 ;; This file is not part of GNU Emacs.
@@ -38,16 +38,16 @@
 
 ;;;; Group
 
-(defgroup blogit-ghost nil
+(defgroup blogit-for-ghost nil
   "Add space between Chinese and English characters automatically."
   :group 'convenience
-  :link '(url-link :tag "Github" "https://github.com/coldnew/emacs-blogit-ghost"))
+  :link '(url-link :tag "Github" "https://github.com/coldnew/emacs-blogit-for-ghost"))
 
 ;;;; Custom Variables
 
 (defcustom org-blogit-file-link-prefix "/content/"
   "Prefix for image and file link."
-  :group 'blogit-ghost
+  :group 'blogit-for-ghost
   :type 'string
   :initialize 'custom-initialize-default)
 
@@ -183,5 +183,5 @@ is non-nil."
     async subtreep visible-only body-only ext-plist
     (lambda () (markdown-mode))))
 
-(provide 'blogit-ghost)
-;;; blogit-ghost.el ends here.
+(provide 'blogit-for-ghost)
+;;; blogit-for-ghost.el ends here.
