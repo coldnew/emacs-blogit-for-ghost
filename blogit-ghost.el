@@ -42,6 +42,10 @@
 (org-export-define-derived-backend 'blogit-md 'md
   :translate-alist
   '(
+    ;; Convert example and fix-width to use as html format
+    ;; FIXME: this is a workround to suite my blogit theme
+    (example-block . org-blogit-example-block)
+    (fixed-width . org-blogit-example-block)
     ;; Use emacs buildin syntax highlight
     (src-block . org-blogit-src-block)
     ;; Fix for multibyte language
@@ -90,6 +94,14 @@ a communication channel."
     ;; change ![img][contents/image] to ![img][/contents/image]
     (s-replace "![img](" "![img](/" link-1)
     ))
+
+;;;; Example Block and Src Block
+
+(defun org-blogit-example-block (example-block contents info)
+  "Transcode EXAMPLE-BLOCK element into Markdown format.
+CONTENTS is nil.  INFO is a plist used as a communication
+channel."
+  (org-html-example-block example-block contents info))
 
 ;;;; Src Block
 
