@@ -85,10 +85,16 @@ a communication channel."
   (let* ((fix-regexp "[[:multibyte:]]")
          (fix-contents
           (replace-regexp-in-string
-           (concat "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" contents)))
+           (concat "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" contents))
+         ;; Unfill paragraph to make contents look mode better
+         (unfill-contents
+          (with-temp-buffer
+            (insert fix-contents)
+            (replace-regexp "\\([^\n]\\)\n\\([^ *\n]\\)" "\\1 \\2" nil (point-min) (point-max))
+            (buffer-string))))
 
     ;; Send modify data to org-md-paragraph
-    (org-md-paragraph paragraph fix-contents info)))
+    (org-md-paragraph paragraph unfill-contents info)))
 
 ;;;; Headline
 
